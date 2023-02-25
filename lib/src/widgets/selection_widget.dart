@@ -53,12 +53,6 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
 
     searchBoxController = widget.popupProps.searchFieldProps.controller ??
         TextEditingController();
-    searchBoxController.addListener(() {
-      Future.delayed(
-        widget.popupProps.searchDelay ?? Duration(milliseconds: 500),
-        () => _onTextChanged(searchBoxController.text),
-      );
-    });
 
     Future.delayed(
       Duration.zero,
@@ -501,6 +495,9 @@ class SelectionWidgetState<T> extends State<SelectionWidget<T>> {
                         widget.popupProps.searchFieldProps.clipBehavior,
                     style: widget.popupProps.searchFieldProps.style,
                     controller: searchBoxController,
+                    onSubmitted: (value) {
+                      _onTextChanged(value);
+                    },
                     focusNode: widget.popupProps.searchFieldProps.focusNode,
                     autofocus: widget.popupProps.searchFieldProps.autofocus,
                     decoration: widget.popupProps.searchFieldProps.decoration,
